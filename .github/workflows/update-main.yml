@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   call-update-secret-workflow:
-    uses: ./.github/worflows/update-secret-call.yml
+    uses: ./.github/workflows/update-secret-call.yml
     with:
       project_name: oneteam-example
       service_name: java-maven-pipeline-example
