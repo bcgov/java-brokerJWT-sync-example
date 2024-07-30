@@ -2,7 +2,7 @@ name: Update Secrets
 on:
   workflow_dispatch:
 
-job:
+jobs:
   main-update-process:
   runs-on: ubuntu-latest
   steps:
