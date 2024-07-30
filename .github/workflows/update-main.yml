@@ -7,7 +7,7 @@ job:
   runs-on: ubuntu-latest
   steps:
     - name: Checkout repository
-        uses: actions/checkout@v2
+      uses: actions/checkout@v2
 
     - name: Set up jq
       run: sudo apt-get install -y jq
