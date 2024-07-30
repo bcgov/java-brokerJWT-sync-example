@@ -2,6 +2,10 @@ name: Update Secrets
 on:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   main-update-process:
     runs-on: ubuntu-latest
@@ -13,7 +17,7 @@ jobs:
         run: sudo apt-get install -y jq
 
       - name: Call reusable workflow to fetch and update secret
-        uses: ./.github/workflows/update-secret-call.yml
+        uses: update-secret-call.yml
         with:
           project_name: oneteam-example
           service_name: java-maven-pipeline-example
