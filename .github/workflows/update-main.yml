@@ -13,9 +13,9 @@ job:
       run: sudo apt-get install -y jq
 
     - name: Call reusable workflow to fetch and update secret
-        uses: ./.github/workflows/update-secret-call.yml
-        with:
-          project_name: oneteam-example
-          service_name: java-maven-pipeline-example
-          service_url: https://github.com/bcgov/java-maven-pipeline-example
-          client_id: eeec21c0-45ad-4556-89e9-4c81bb293ce7
+      uses: ./.github/workflows/update-secret-call.yml
+      with:
+        project_name: oneteam-example
+        service_name: java-maven-pipeline-example
+        service_url: https://github.com/bcgov/java-maven-pipeline-example
+        client_id: eeec21c0-45ad-4556-89e9-4c81bb293ce7
