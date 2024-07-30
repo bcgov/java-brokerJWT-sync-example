@@ -1,0 +1,22 @@
+{
+    "event": {
+      "provider": "github-action-build",
+      "reason": "Job triggered",
+      "url": "JOB_URL"
+    },
+    "actions": [
+      {
+          "action": "login",
+          "id": "login",
+          "provision": ["token/self"],
+          "service": {
+            "name": "",
+            "project": "",
+            "environment": "tools"
+          }
+      }
+    ],
+    "user": {
+      "name": "github@internal"
+    }
+  }
