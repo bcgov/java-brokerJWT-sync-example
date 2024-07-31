@@ -14,3 +14,4 @@ jobs:
       service_name: java-maven-pipeline-example
       service_url: https://github.com/bcgov/java-maven-pipeline-example
       client_id: eeec21c0-45ad-4556-89e9-4c81bb293ce7
+    secrets: inherit
