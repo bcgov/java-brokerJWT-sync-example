@@ -12,13 +12,10 @@ jobs:
 
       - name: Get JWT secret
         id: jwt
-        run:  |
-          echo "broker_jwt=${JWT_SECRET}" >> $GITHUB_OUTPUT
-        env:
-          JWT_SECRET: ${{ secrets.BROKER_JWT }}
+        run:  echo "::set-output name=jwt_secret::${{ secrets.BROKER_JWT }}"
 
       - name: Show JWT in plain text
         run: |
           echo "secrets in plain text is: ${SECRET}"
         env:
-          SECRET: ${{ steps.jwt.outputs.broker_jwt}}
+          SECRET: ${{ steps.jwt.outputs.jwt_secret}}
