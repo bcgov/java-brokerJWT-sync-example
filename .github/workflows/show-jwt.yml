@@ -12,7 +12,7 @@ jobs:
 
       - name: Get JWT secret
         id: jwt
-        run:  echo "::set-output name=jwt_secret::${{ secrets.BROKER_JWT }}"
+        run:  echo "jwt_secret=${{ secrets.BROKER_JWT }}" >> $GITHUB_OUTPUT
 
       - name: Show JWT in plain text
         run: |
