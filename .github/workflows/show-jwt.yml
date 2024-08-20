@@ -1,9 +1,7 @@
 name: Show JWT Secret
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   show-jwt-secret:
