@@ -1,0 +1,16 @@
+name: Show JWT Secret
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  show-jwt-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Display JWT secret
+        run: echo "The JWT secret is: ${{ secrets.BROKER_JWT }}"
