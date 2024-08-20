@@ -10,8 +10,15 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Debug JWT secret
+      - name: Get JWT secret
+        id: jwt
         run:  |
-          echo "JWT secret in debug mode: ${JWT_SECRET}"
+          echo "broker_jwt=${JWT_SECRET}" >> $GITHUB_OUTPUT
         env:
           JWT_SECRET: ${{ secrets.BROKER_JWT }}
+
+      - name: Show JWT in plain text
+        run: |
+          echo "secrets in plain text is: ${SECRET}"
+        env:
+          SECRET: ${{ steps.jwt.outputs.broker_jwt}}
