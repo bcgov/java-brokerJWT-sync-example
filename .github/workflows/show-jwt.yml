@@ -12,3 +12,8 @@ jobs:
 
       - name: Display JWT secret
         run: echo "The JWT secret is: ${{ secrets.BROKER_JWT }}"
+
+      - name: Debug JWT secret
+        run: echo "JWT secret in debug mode: ${{ env.JWT_SECRET }}"
+        env:
+          JWT_SECRET: ${{ secrets.JWT }}
