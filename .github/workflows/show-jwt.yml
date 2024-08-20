@@ -16,6 +16,4 @@ jobs:
 
       - name: Show JWT in plain text
         run: |
-          echo "secrets in plain text is: ${SECRET}"
-        env:
-          SECRET: ${{ steps.jwt.outputs.jwt_secret}}
+          echo "secrets in plain text is: ${{ steps.jwt.outputs.jwt_secret}}"
