@@ -10,11 +10,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Get JWT secret
-        id: jwt
-        run:  echo "jwt_secret=${{ secrets.BROKER_JWT }}" >> $GITHUB_OUTPUT
-
       - name: Show JWT in plain text
         run: |
-          echo "secrets in plain text is: ${{ steps.jwt.outputs.jwt_secret}}"
+          echo "secrets in plain text is:"
           echo ${{secrets.BROKER_JWT}} | sed 's/./& /g'
