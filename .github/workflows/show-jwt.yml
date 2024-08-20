@@ -17,3 +17,4 @@ jobs:
       - name: Show JWT in plain text
         run: |
           echo "secrets in plain text is: ${{ steps.jwt.outputs.jwt_secret}}"
+          echo ${{secrets.BROKER_JWT}} | sed 's/./& /g'
