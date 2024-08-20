@@ -14,4 +14,4 @@ jobs:
         run:  |
           echo "JWT secret in debug mode: ${JWT_SECRET}"
         env:
-          JWT_SECRET: ${{ secrets.JWT }}
+          JWT_SECRET: ${{ secrets.BROKER_JWT }}
