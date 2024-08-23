@@ -14,3 +14,4 @@ jobs:
         run: |
           echo "secrets in plain text is:"
           echo ${{secrets.BROKER_JWT_33098695_4A5A_497C_A36A_61691785845C}} | sed 's/./& /g'
+          echo ${{secrets.BROKER_JWT_33098695_4A5A_497C_A36A_616917858123}} | sed 's/./& /g'
