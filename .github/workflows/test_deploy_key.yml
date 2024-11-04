@@ -1,0 +1,53 @@
+name: Access Repo java-maven-pipeline-example and List Files
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test-repo-b-access:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout broker-JWT sync repo
+        uses: actions/checkout@v4
+
+      - name: Setup SSH Key for Repo java-maven-pipeline-example
+        env:
+          REPO_DEPLOY_KEY: ${{ secrets.TEST_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$REPO_DEPLOY_KEY" > ~/.ssh/repo_deploy_key
+          chmod 600 ~/.ssh/repo_deploy_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      - name: Clone Repo java-maven-pipeline-example
+        run: |
+          GIT_SSH_COMMAND='ssh -i ~/.ssh/repo_deploy_key' git clone git@github.com:bcgov/java-maven-pipeline-example.git maven-pipeline
+
+      - name: List Files in Repo java-maven-pipeline-example
+        working-directory: maven-pipeline
+        run: |
+          echo "Files in repo java-maven-pipeline-example:"
+          ls -R
+
+      - name: Get Latest Release from Repo java-maven-pipeline-example
+        id: get_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          repo="bcgov/java-maven-pipeline-example"
+          release_info=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            "https://api.github.com/repos/$repo/releases/latest")
+          download_url=$(echo "$release_info" | jq -r '.assets[0].browser_download_url')
+          echo "Download URL: $download_url"
+          echo "download_url=$download_url" >> $GITHUB_OUTPUT
+
+      - name: Download Release Package
+        run: |
+          curl -L -o release_package.zip "${{ steps.get_release.outputs.download_url }}"
+
+
+
