@@ -33,21 +33,32 @@ jobs:
           echo "Files in repo java-maven-pipeline-example:"
           ls -R
 
-      - name: Get Latest Release from Repo java-maven-pipeline-example
-        id: get_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure Maven Settings with GitHub Packages
         run: |
-          repo="bcgov/java-maven-pipeline-example"
-          release_info=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/repos/$repo/releases/latest")
-          download_url=$(echo "$release_info" | jq -r '.assets[0].browser_download_url')
-          echo "Download URL: $download_url"
-          echo "download_url=$download_url" >> $GITHUB_OUTPUT
+          mkdir -p ~/.m2
+          cat <<EOF > ~/.m2/settings.xml
+          <settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <configuration>
+                  <httpHeaders>
+                    <property>
+                      <name>Authorization</name>
+                      <value>Bearer $GITHUB_TOKEN</value>
+                    </property>
+                  </httpHeaders>
+                </configuration>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
-      - name: Download Release Package
+      - name: Download Maven Package from Repo B
         run: |
-          curl -L -o release_package.zip "${{ steps.get_release.outputs.download_url }}"
+          mvn dependency:get -DrepoUrl="https://maven.pkg.github.com/bcgov/java-maven-pipeline-example" \
+                             -Dartifact=bcgov.example:java-maven-pipeline-example:1.0.1-SNAPSHOT \
+                             -Dtransitive=false
 
 
 
