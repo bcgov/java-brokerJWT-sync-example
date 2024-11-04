@@ -3,7 +3,7 @@ name: Access Repo java-maven-pipeline-example and List Files
 on:
   push:
     branches:
-      - main
+      - "test/deployKey"
   workflow_dispatch:
 
 jobs:
