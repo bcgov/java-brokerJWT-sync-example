@@ -1,0 +1,21 @@
+name: Access Repo java-maven-pipeline-example via Curl
+
+on:
+  push:
+    branches:
+      - "test/deployKey"
+  workflow_dispatch:
+
+jobs:
+  test-repo-b-access:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout broker-JWT sync repo
+        uses: actions/checkout@v4
+
+      - name: Download Maven Package from Repo B
+        run: |
+          downloadUrl="https://maven.pkg.github.com/bcgov/java-maven-pipeline-example/bcgov/example/java-maven-pipeline-example/1.0.1-SNAPSHOT/java-maven-pipeline-example-1.0.1-20241025.224628-7.war"
+          curl -LO ${downloadUrl} -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+          ls -R
